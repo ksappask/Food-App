@@ -1,8 +1,8 @@
 {
   "name": "food-app",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
+    "start": "parcel //Users//akash.k//Desktop//React_Projects//Food-App//index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,5 +16,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "description": ""
+  "browserslist": [
+    "last 2 chrome versions"
+  ],
+  "description": "Food Ordering App"
 }
