@@ -1,36 +1,7 @@
-import React from "react";
-import ReactDom from "react-dom/client";
+export const IMG_CDN_URL =
+  "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/";
 
-const Title = () => (
-  <a href="/">
-    <img
-      className="logo"
-      alt="logo"
-      src="https://i.pinimg.com/736x/49/4c/28/494c28fd3aa149b13e013583f8fd9881.jpg"
-    ></img>
-  </a>
-);
-
-const Header = () => {
-  return (
-    <div
-      style={{ backgroundColor: "red", fontSize: "20px" }}
-      className="header"
-    >
-      <Title />
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cart</li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-const restaurantList = [
+export const restaurantList = [
   {
     type: "restaurant",
     data: {
@@ -918,55 +889,3 @@ const restaurantList = [
     subtype: "basic",
   },
 ];
-
-const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRating }) => {
-  //const { name, cuisines, cloudinaryImageId, avgRating } = restaurant.data;
-  return (
-    <div className="card">
-      <img
-        src={
-          "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" +
-          cloudinaryImageId
-        }
-      ></img>
-      <h2>{name}</h2>
-      <h3>{cuisines.join(" , ")}</h3>
-      <h4>{avgRating + " Ratings"}</h4>
-    </div>
-  );
-};
-
-const Body = () => {
-  return (
-    <div className="restaurant-list">
-      {
-        /*  <RestaurantCard restaurant={restaurantList[0]} /> 
-      <RestaurantCard {...restaurantList[1].data} />*/
-
-        restaurantList.map((restaurant) => {
-          return (
-            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-          );
-        })
-      }
-    </div>
-  );
-};
-
-const Footer = () => {
-  return <h1>Footer</h1>;
-};
-
-const AppLayout = () => {
-  return (
-    <>
-      <Header />
-      <Body />
-      <Footer />
-    </>
-  );
-};
-
-const root = ReactDom.createRoot(document.getElementById("root"));
-
-root.render(<AppLayout />);
