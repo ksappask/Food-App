@@ -2,6 +2,7 @@ import { restaurantList } from "../Constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
@@ -16,16 +17,18 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
+  //call back will come after every component renders if we have empty array as input
   useEffect(() => {
     getRestaurants();
   }, []); // If we have [] Only Once after load chrome tab
+  //[searchText] => every time serachText renders + calls after every change in searchtext
 
   async function getRestaurants() {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=13.0826802&lng=80.2707184&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    console.log(json.data.cards[2].data.data.cards);
+
     //Optional Chaining ?.
     setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
     setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
@@ -62,7 +65,12 @@ const Body = () => {
       <div className="restaurant-list">
         {filteredRestaurants.map((restaurant) => {
           return (
-            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+            <Link
+              key={restaurant.data.id}
+              to={"/restaurant/" + restaurant.data.id}
+            >
+              <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+            </Link>
           );
         })}
       </div>
