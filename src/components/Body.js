@@ -3,15 +3,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
-function filterData(searchText, restaurants) {
-  const filterData = restaurants.filter((restaurant) =>
-    restaurant.data.name.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  return filterData;
-}
-
+import { filterData } from "../utlis/helper";
+import useOnline from "../utlis/useOnline";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -34,16 +27,22 @@ const Body = () => {
     setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
 
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return <h1>Offline, please check your internet connection!!</h1>;
+  }
+
   if (!allRestaurants) return <h1>No Restaurants Found</h1>;
 
   return allRestaurants?.length === 0 ? (
     <Shimmer />
   ) : (
     <>
-      <div className="search-container">
+      <div className="p-5 bg-pink-50 my-5">
         <input
           type="text"
-          className="search-input"
+          className="focus:bg-pink-100  p-2 m-2"
           placeholder="Search"
           value={searchText}
           onChange={(e) => {
@@ -52,7 +51,7 @@ const Body = () => {
         />
         <button
           type="button"
-          className="search-btn" //Filtering Data
+          className="p-2 m-2 w-20 bg-purple-600 hover:bg-purple-900 text-white rounded-md" //Filtering Data
           onClick={() => {
             const data = filterData(searchText, allRestaurants);
 
@@ -62,7 +61,7 @@ const Body = () => {
           Search
         </button>
       </div>
-      <div className="restaurant-list">
+      <div className="flex flex-wrap">
         {filteredRestaurants.map((restaurant) => {
           return (
             <Link

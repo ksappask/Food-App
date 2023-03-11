@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
 .header {
   display: flex;
   justify-content: space-between;
@@ -56,3 +61,4 @@
 .menu {
   display: flex;
 }
+*/

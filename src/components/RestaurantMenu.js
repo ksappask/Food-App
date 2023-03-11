@@ -2,37 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IMG_CDN_URL } from "../Constants";
 import Shimmer from "./Shimmer";
+import useRestaurant from "../utlis/useRestaurant";
 const RestaurantMenu = () => {
   const params = useParams();
 
-  const [restaurantMenuInfo, setRestaurantMenuInfo] = useState(null);
-  const [restaurantInfo, setRestaurantInfo] = useState(null);
-
-  useEffect(() => {
-    getRestaurantInfo();
-  }, []);
-
-  async function getRestaurantInfo() {
-    console.log(params.id);
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.92690167665635&lng=80.09482506662607&restaurantId=" +
-        params.id +
-        "&submitAction=ENTER"
-    );
-    const json = await data.json();
-    console.log(json);
-    console.log(json.data.cards[0].card.card.info);
-    console.log(
-      json.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
-        .itemCards
-    );
-
-    setRestaurantInfo(json.data.cards[0].card.card.info);
-    setRestaurantMenuInfo(
-      json.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card
-        .itemCards
-    );
-  }
+  // Custom Hook
+  const [restaurantInfo, restaurantMenuInfo] = useRestaurant(params.id);
 
   //if (!restaurantInfo) {
   //return <Shimmer />;
