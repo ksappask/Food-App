@@ -5,10 +5,15 @@ import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utlis/helper";
 import useOnline from "../utlis/useOnline";
+import { useContext } from "react";
+import UserContext from "../utlis/UserContext";
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+  //Context from Body.js Setted there in Body.js
+  const { user, setUser } = useContext(UserContext);
 
   //call back will come after every component renders if we have empty array as input
   useEffect(() => {
@@ -60,6 +65,24 @@ const Body = () => {
         >
           Search
         </button>
+        <input
+          onChange={(e) =>
+            setUser({
+              ...user,
+              name: e.target.value,
+            })
+          }
+          value={user.name}
+        ></input>
+        <input
+          onChange={(e) =>
+            setUser({
+              ...user,
+              email: e.target.value,
+            })
+          }
+          value={user.email}
+        ></input>
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurants.map((restaurant) => {

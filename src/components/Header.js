@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Logo from "../assets/logo-image/logo.jpeg";
 import { Link } from "react-router-dom";
-
+import UserContext from "../utlis/UserContext";
+import { useContext } from "react";
 const Title = () => (
   <a href="/">
     <img
-      className="h-28 p-2 "
+      className="h-28 p-2 inline "
       alt="logo"
       // src="https://i.pinimg.com/736x/49/4c/28/494c28fd3aa149b13e013583f8fd9881.jpg"
       src={Logo}
@@ -22,6 +23,10 @@ const loggedInUser = () => {
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // style={{ backgroundColor: "red", fontSize: "20px" }}
+
+  //
+  const { user } = useContext(UserContext);
+
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg  sm:flex-shrink md:flex-shrink lg:flex-row">
       <Title />
@@ -44,6 +49,11 @@ const Header = () => {
           <li className="px-2">Cart</li>
         </ul>
       </div>
+
+      <span className="p-10 font-bold text-red-900">
+        {"Welcome " + user.name}
+      </span>
+
       {isLoggedIn ? (
         <button onClick={() => setIsLoggedIn(false)}>Logout</button>
       ) : (
