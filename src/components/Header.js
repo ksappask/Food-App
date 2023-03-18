@@ -3,6 +3,7 @@ import Logo from "../assets/logo-image/logo.jpeg";
 import { Link } from "react-router-dom";
 import UserContext from "../utlis/UserContext";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 const Title = () => (
   <a href="/">
     <img
@@ -27,6 +28,8 @@ const Header = () => {
   //
   const { user } = useContext(UserContext);
 
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
   return (
     <div className="flex justify-between bg-pink-50 shadow-lg  sm:flex-shrink md:flex-shrink lg:flex-row">
       <Title />
@@ -46,7 +49,9 @@ const Header = () => {
           <li className="px-2">
             <Link to="/instamart">Instamart</Link>
           </li>
-          <li className="px-2">Cart</li>
+          <li className="px-2">
+            <Link to="/cart">Cart - {cartItems.length} items</Link>
+          </li>
         </ul>
       </div>
 

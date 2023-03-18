@@ -15,7 +15,7 @@ import Shimmer from "./components/Shimmer";
 import UserContext from "./utlis/UserContext";
 import { Provider } from "react-redux";
 import store from "./utlis/store";
-
+import Cart from "./components/Cart";
 //lazy loading/ on demand loading
 //while lazy loainding, react will suspend some time to load the component/js file
 const Instamart = lazy(() => import("./components/Instamart"));
@@ -75,6 +75,14 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<Shimmer />}>
             <Instamart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Cart />
           </Suspense>
         ),
       },
